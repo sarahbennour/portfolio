@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webquiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Algemene Kennis Quiz</h1>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. Wat is de hoofdstad van Nederland?</p>
+                <ul class="options">
+                    <li><input type="radio" name="q1" value="A"> A) Rotterdam</li>
+                    <li><input type="radio" name="q1" value="B"> B) Amsterdam</li>
+                    <li><input type="radio" name="q1" value="C"> C) Den Haag</li>
+                    <li><input type="radio" name="q1" value="D"> D) Utrecht</li>
+                </ul>
+            </div>
+            <div class="question">
+                <p>2. Wie schreef het boek <i>Harry Potter en de Steen der Wijzen</i>?</p>
+                <ul class="options">
+                    <li><input type="radio" name="q2" value="A"> A) J.R.R. Tolkien</li>
+                    <li><input type="radio" name="q2" value="B"> B) J.K. Rowling</li>
+                    <li><input type="radio" name="q2" value="C"> C) Stephen King</li>
+                    <li><input type="radio" name="q2" value="D"> D) Suzanne Collins</li>
+                </ul>
+            </div>
+            <div class="question">
+                <p>3. Hoeveel continenten zijn er op aarde?</p>
+                <ul class="options">
+                    <li><input type="radio" name="q3" value="A"> A) 5</li>
+                    <li><input type="radio" name="q3" value="B"> B) 6</li>
+                    <li><input type="radio" name="q3" value="C"> C) 7</li>
+                    <li><input type="radio" name="q3" value="D"> D) 8</li>
+                </ul>
+            </div>
+            <button type="button" class="submit-btn" onclick="checkAnswers()">Beoordelen</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        function checkAnswers() {
+            var score = 0;
+            var totalQuestions = 3;
+            // Get the answers
+            var q1 = document.querySelector('input[name="q1"]:checked');
+            var q2 = document.querySelector('input[name="q2"]:checked');
+            var q3 = document.querySelector('input[name="q3"]:checked');
+            // Check answers
+            if (q1 && q1.value === 'B') score++;
+            if (q2 && q2.value === 'B') score++;
+            if (q3 && q3.value === 'C') score++;
+            // Display the result
+            var resultText = "Je score is: " + score + " van de " + totalQuestions + " juiste antwoorden.";
+            document.getElementById('result').innerHTML = resultText;
+        }
+    </script>
+</body>
+</html>

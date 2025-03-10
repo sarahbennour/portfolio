@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus Portaal Zuilen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welkom bij het Bonus Portaal Zuilen!</h1>
+        <p id="message">Kies een optie:</p>
+        <!-- Buttons for bonuses by week -->
+        <button class="btn" onclick="showBonuses('deze week')">Bonussen van deze week</button>
+        <button class="btn" onclick="showBonuses('vorige week')">Bonussen van vorige week</button>
+        <button class="btn" onclick="showBonuses('volgende week')">Bonussen van volgende week</button>
+    </div>
+    <script>
+        function updateMessage(text) {
+            document.getElementById("message").textContent = text;
+        }
+
+        // Function to generate a random discount percentage
+        function getRandomDiscount() {
+            return Math.floor(Math.random() * 50) + 5; // Random discount between 5% and 50%
+        }
+
+        // Function to get 10 random products from a given product list
+        function getRandomProducts(products) {
+            const shuffled = products.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 10);
+        }
+
+        function showBonuses(period) {
+            let products = [];
+            // Define products for each period
+            if (period === 'deze week') {
+                products = [
+                    "Banaan", "Chocolade", "Appels", "Sinaasappels", "Aardbeien",
+                    "Melk", "Kaas", "Brood", "Yoghurt", "Pindakaas", "Tomaten",
+                    "Komkommer", "Paprika", "Broccoli", "Avocado", "Witte Chocolade",
+                    "Chips", "Koffie", "Thee", "Pizza"
+                ];
+            } else if (period === 'vorige week') {
+                products = [
+                    "Avocado", "Tomaten", "Komkommer", "Paprika", "Broccoli",
+                    "Witte Chocolade", "Chips", "Koffie", "Thee", "Pizza",
+                    "Appels", "Banaan", "Aardbeien", "Melk", "Kaas",
+                    "Pindakaas", "Yoghurt", "Sinaasappels", "Kersen", "Frambozen"
+                ];
+            } else if (period === 'volgende week') {
+                products = [
+                    "Mango", "Ananas", "Kersen", "Grapefruit", "Peer",
+                    "Frambozen", "Kiwi", "Pruimen", "Bessen", "Meloen",
+                    "Aardbeien", "Banaan", "Sinaasappels", "Tomaten", "Komkommer",
+                    "Paprika", "Avocado", "Broccoli", "Spinazie", "Courgette"
+                ];
+            }
+
+            // Get 10 random products and apply random discounts
+            const selectedProducts = getRandomProducts(products);
+            const discountedProducts = selectedProducts.map(product => {
+                const discount = getRandomDiscount();
+                return `${product}: ${discount}% korting`;
+            });
+
+            // Display the products with discounts for the selected period
+            updateMessage(`Producten voor ${period}:\n` + discountedProducts.join("\n"));
+
+            // Return to main menu after a delay
+            setTimeout(returnToMainMenu, 5000);
+        }
+
+        function returnToMainMenu() {
+            updateMessage("Kies een optie:");
+        }
+    </script>
+</body>
+</html>
