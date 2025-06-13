@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Day Menu – Rits Karlton Hotel</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      margin: 40px;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 40px;
+      text-transform: uppercase;
+    }
+
+    .item {
+      margin-bottom: 20px;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+
+    .item-desc {
+      margin-left: 15px;
+      font-style: italic;
+    }
+
+    .price {
+      float: right;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      margin-top: 40px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+
+<img src="room-service.png" alt="Room Service" style="position: absolute; top: 20px; right: 0px; width: 200px;">
+
+  <h1>ALL DAY MENU</h1>
+
+  <form id="roomserviceForm" action="verwerkbestelling.php" method="POST">
+  
+  <h2>Fill your room in</h2>
+
+  <label for="kamer">Room number:</label>
+  <input type="text" id="kamer" name="kamer" pattern="\d{3}" maxlength="3" required>
+
+<h2>Choose your delivery time</h2>
+
+  <label for="bezorgtijd">Delivery time:</label>
+  <input type="time" id="bezorgtijd" name="bezorgtijd" required>
+
+
+  <!-- STARTERS -->
+  <div class="section-title">STARTERS</div>
+  <div class="item">
+<span class="item-name">Oriental lentil soup (V)</span><span class="price">55</span><br>
+    <span class="item-desc">Cumin, lemon</span> 
+     <input type="checkbox" data-prijs="55">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+</div>
+  </div>
+  <div class="item">
+    <span class="item-name">Salt and pepper squid</span><span class="price">80</span><br>
+    <span class="item-desc">Green chili Nahm Jim</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Assorted cold mezze</span><span class="price">90</span><br>
+    <span class="item-desc">Hummus, Moutabel, Muhammara, vine leaves, Tabouleh, Fatoush<br>Served with Arabic bread</span>
+         <input type="checkbox" data-prijs="90">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">“Al Fumo” artisan smoked salmon</span><span class="price">90</span><br>
+    <span class="item-desc">Toasted onion bagel, chive crème fraîche, capers, basil vinaigrette</span>
+         <input type="checkbox" data-prijs="90">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Watermelon and sheep’s milk feta salad (V)</span><span class="price">70</span><br>
+    <span class="item-desc">Wild arugula, cucumber, citrus and basil vinaigrette</span>
+         <input type="checkbox" data-prijs="70">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Heirloom beet and tomato salad (V)</span><span class="price">70</span><br>
+    <span class="item-desc">Pomegranate, quinoa, citrus marinated olives</span>
+         <input type="checkbox" data-prijs="70">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Caesar salad</span><span class="price">75</span><br>
+    <span class="item-desc">Romaine hearts, veal bacon, parmesan cheese, garlic crouton</span><br>
+    <span class="item-desc">with rotisserie chicken <span class="price">90</span></span>
+         <input type="checkbox" data-prijs="90">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+    <span class="item-desc">with grilled prawns <span class="price">100</span></span>
+         <input type="checkbox" data-prijs="100">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+
+  <!-- SIGNATURE DISHES -->
+  <div class="section-title">SIGNATURE DISHES</div>
+  <div class="item">
+    <span class="item-name">Half rotisserie free range chicken</span><span class="price">140</span><br>
+    <span class="item-desc">Buttered carrots, buttermilk mashed potatoes and natural jus</span>
+         <input type="checkbox" data-prijs="140">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Tandoori mixed grill</span><span class="price">150</span><br>
+    <span class="item-desc">Chicken tikka, seekh kebab, assorted chutneys and bread</span>
+         <input type="checkbox" data-prijs="150">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Grilled lamb chops</span><span class="price">180</span><br>
+    <span class="item-desc">Roasted potatoes, fatoush, garlic sauce</span>
+         <input type="checkbox" data-prijs="180">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Line caught sea bass</span><span class="price">160</span><br>
+    <span class="item-desc">Sautéed spinach, olive oil crushed potatoes, tomato and olive vinaigrette</span>
+         <input type="checkbox" data-prijs="160">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Heritage Angus beef striploin 300g</span><span class="price">195</span><br>
+    <span class="item-desc">Grilled asparagus, roasted new potatoes and Bearnaise sauce</span>
+         <input type="checkbox" data-prijs="195">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+
+  <!-- SANDWICHES -->
+  <div class="section-title">SANDWICHES</div>
+  <div class="item">
+    <span class="item-name">Grilled vegetable sandwich (V)</span><span class="price">80</span><br>
+    <span class="item-desc">Wild arugula, herb aioli and focaccia</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Big Rami’s shawarma</span><span class="price">85</span><br>
+    <span class="item-desc">Free range chicken, sumac onions, pickles, garlic sauce, Saj bread</span>
+         <input type="checkbox" data-prijs="85">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Club sandwich</span><span class="price">90</span><br>
+    <span class="item-desc">Rotisserie chicken, veal bacon, egg, tomato, lettuce and mayonnaise</span>
+         <input type="checkbox" data-prijs="90">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <div class="item">
+    <span class="item-name">Heritage Angus beef burger</span><span class="price">110</span><br>
+    <span class="item-desc">English cheddar, veal bacon, fried egg, lettuce, tomato and pickles</span>
+         <input type="checkbox" data-prijs="110">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+  <p class="item-desc">All sandwiches are served with your choice of French fries or mixed green salad</p>
+
+  <!-- SIDES -->
+  <div class="section-title">SIDES</div>
+    <span class="item-name">French fries</span><span class="price">35</span>
+     <input type="checkbox" data-prijs="35">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+
+     <span class="item-name">New potatoes with herb butter</span><span class="price">35</span>     
+     <input type="checkbox" data-prijs="35">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+
+    <span class="item-name">Buttermilk mashed potato</span><span class="price">35</span>
+    <input type="checkbox" data-prijs="35">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+
+    <span class="item-name">Mixed green salad</span><span class="price">35</span>
+    <input type="checkbox" data-prijs="35">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+
+    <span class="item-name">Roasted garlic fingerling potatoes</span><span class="price">35</span>
+      <input type="checkbox" data-prijs="35">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+  <!-- DESSERTS -->
+  <div class="section-title">DESSERTS</div>
+  <div class="item">
+    <span class="item-name">Warm apple and almond crostada (N)</span><span class="price">80</span><br>
+    <span class="item-desc">Vanilla custard sauce</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  </div>
+    <span class="item-name">The Ritz Carlton Cake (A)</span><span class="price">80</span><br>
+    <span class="item-desc">Valrhona chocolate, orange confit, Grand Marnier Available without alcohol</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+    <span class="item-name">Kholas date cake</span><span class="price">80</span><br>
+    <span class="item-desc">Cinnamon toffee sauce, salted caramel gelato</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+    <span class="item-name">Kunafa (N)</span><span class="price">80</span><br>
+    <span class="item-desc">Kunafa dough, semolina, rose water, cardamom, orange blossom sorbet</span>
+         <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+    <span class="item-name">Sliced seasonal fruits and berries</span><span class="price">60</span>
+         <input type="checkbox" data-prijs="60">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+   <span class="item-name">Artisan cheese selection</span><span class="price">80</span>
+        <input type="checkbox" data-prijs="80">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  </div>
+
+  <!-- GELATO -->
+    <div class="section-title">GELATO AND SORBET</div>
+    <span class="item-name">Chocolate, vanilla, pistachio (N) gelato</span><span class="price"></span>
+     <input type="checkbox">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+    <span class="item-name">Raspberry, orange blossom sorbet</span><span class="price"></span>
+     <input type="checkbox">
+  <select class="aantal">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+    <span class="item-name">1 scoop</span><span class="price">25</span>
+    <input type="checkbox" data-prijs="25"><br><br>
+    <span class="item-name">3 scoops</span><span class="price">60</span>
+    <input type="checkbox" data-prijs="60"><br><br>
+
+    <h2>Checkout</h2>
+    <h3>Discount code</h3>
+<label for="discount">Enter your code:</label>
+<input type="text" id="discount" name="discount" placeholder="Enter code">
+<button type="button" onclick="applyDiscount()">Apply</button>
+<p id="discountMessage"></p>
+     <p id="btw21">21% BTW: € 0,00</p>
+     <p id="totaal">Total amount: € 0,00</p>
+
+
+
+  <div class="note">
+    (N) Nuts (V) Vegetarian (A) Alcohol<br>
+    Prices are inclusive of 10% Municipality Fees and 10% Service Charge
+  </div>
+
+</form>
+
+  <script>
+  function updateTotaal() {
+    let totaal = 0;
+    const items = document.querySelectorAll('input[type="checkbox"][data-prijs]');
+
+    items.forEach((checkbox) => {
+      if (checkbox.checked) {
+        const prijs = parseFloat(checkbox.getAttribute("data-prijs"));
+        const aantalSelect = checkbox.nextElementSibling;
+        const aantal = parseInt(aantalSelect.value) || 1;
+        totaal += prijs * aantal;
+      }
+    });
+
+    document.getElementById("totaal").textContent = "€ " + totaal.toFixed(2);
+  }
+
+  document.querySelectorAll('input[type="checkbox"][data-prijs], select.aantal').forEach((el) => {
+    el.addEventListener("change", updateTotaal);
+  });
+</script>
+
+<script>
+  function updateCheckout() {
+    let totaal = 0;
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-prijs]');
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        const prijs = parseFloat(checkbox.getAttribute("data-prijs"));
+        const select = checkbox.nextElementSibling;
+        const aantal = parseInt(select.value) || 1;
+        totaal += prijs * aantal;
+      }
+    });
+
+    const btw = totaal * 0.21;
+    document.getElementById("btw21").textContent = "21% BTW: € " + btw.toFixed(2);
+    document.getElementById("totaal").textContent = "Total amount: € " + totaal.toFixed(2);
+  }
+
+  document.querySelectorAll('input[type="checkbox"][data-prijs], select.aantal').forEach(el => {
+    el.addEventListener("change", updateCheckout);
+  });
+
+  updateCheckout();
+</script>
+
+<script>
+function updateTotals() {
+  let checkboxes = document.querySelectorAll('input[type="checkbox"][data-prijs]');
+  let total = 0;
+
+  checkboxes.forEach(function (checkbox) {
+    if (checkbox.checked) {
+      let prijs = parseFloat(checkbox.getAttribute("data-prijs"));
+      let select = checkbox.nextElementSibling;
+      let aantal = parseInt(select.value);
+      total += prijs * aantal;
+    }
+  });
+
+  let btw = total * 0.21;
+  let totaalMetBTW = total + btw;
+
+  let kortingCode = document.getElementById("discount").value;
+  if (kortingCode === "HONGER2025") {
+    totaalMetBTW *= 0.9; // 10% korting
+    document.getElementById("discountMessage").textContent = "Discount applied!";
+  } else {
+    document.getElementById("discountMessage").textContent = "";
+  }
+
+  document.getElementById("btw21") = "€ " + btw.toFixed(2);
+  document.getElementById("totaal").textContent = "€ " + totaalMetBTW.toFixed(2);
+}
+
+function applyDiscount() {
+  updateTotals();
+}
+
+document.querySelectorAll('input[type="checkbox"], select.aantal').forEach(el => {
+  el.addEventListener('change', updateTotals);
+});
+</script>
+
+<script>
+function placeOrder() {
+  const deliveryInput = document.getElementById("bezorgtijd");
+  const deliveryTime = deliveryInput.value;
+  const kamer = document.getElementById("kamer").value;
+
+  if (!deliveryTime || !kamer) {
+    document.getElementById("orderMessage").textContent = "Please fill in both room number and delivery time.";
+    return;
+  }
+
+  const now = new Date();
+  const deliveryDate = new Date();
+  const [hours, minutes] = deliveryTime.split(":");
+  deliveryDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+  const diffInMs = deliveryDate - now;
+  const diffInMinutes = diffInMs / (1000 * 60);
+
+  if (diffInMinutes < 30) {
+    document.getElementById("orderMessage").style.color = "red";
+    document.getElementById("orderMessage").textContent =
+      "Delivery time must be at least 30 minutes from now.";
+    return;
+  }
+
+  const totaal = document.getElementById("totaal").textContent.replace("€", "").trim();
+
+  document.getElementById("confirmRoom").textContent = kamer;
+  document.getElementById("confirmTime").textContent = deliveryTime;
+  document.getElementById("confirmTotal").textContent = totaal;
+  document.getElementById("confirmationScreen").style.display = "block";
+
+  document.getElementById("orderMessage").textContent = "";
+document.getElementById("roomserviceForm").submit();
+}
+</script>
+
+<button type="button" onclick="placeOrder()">Place Order</button>
+<p id="orderMessage" style="color: red;"></p>
+</form>
+
+<div id="confirmationScreen" style="display:none; border: 1px solid #999; padding: 30px; margin-top: 50px; background-color: #fdfdfd; font-family: Georgia, serif;">
+  <h2 style="text-align: center; font-size: 1.8rem;">Thank you for your order!</h2>
+  <p>Your order has been received and is being prepared.</p>
+  <p><strong>Room number:</strong> <span id="confirmRoom"></span></p>
+  <p><strong>Delivery time:</strong> <span id="confirmTime"></span></p>
+  <p><strong>Total price (incl. VAT):</strong> € <span id="confirmTotal"></span></p>
+  <p style="margin-top: 20px;">We look forward to serving you. – Rits Karlton Hotel</p>
+</div>
+
+
+</body>
+</html>
