@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Amsterdam Quizkaart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #1b1b1b;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .map-container {
+            position: relative;
+            width: 768px;
+            height: 1152px;
+            margin: 20px auto;
+            background-image: url('img.png');
+            background-size: cover;
+            border: 4px solid #fff;
+        }
+
+        .hotspot {
+            position: absolute;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(173, 216, 230, 0.6);
+            border-radius: 50%;
+            border: 2px solid #00ff90;
+            z-index: 1;
+        }
+
+        .slot {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .vraag-popup {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #00ff90;
+            padding: 12px;
+            border: 2px solid #00ff90;
+            max-width: 300px;
+            font-size: 10px;
+            animation: fadeIn 0.5s ease-out;
+            z-index: 3;
+        }
+
+        input, button {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            margin-top: 6px;
+        }
+
+        #eindscherm {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #00ff90;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 5;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="map-container" id="kaart">
+    <!-- Hotspots & slotjes worden dynamisch toegevoegd -->
+</div>
+
+<div id="vraag-popup" class="vraag-popup" style="display: none;">
+    <div id="vraag-tekst"></div>
+    <input type="text" id="antwoord-input" placeholder="Typ je antwoord..." style="width: 90%;">
+    <button onclick="checkAntwoord()">Check antwoord</button>
+    <div id="feedback" style="margin-top: 8px;"></div>
+</div>
+
+<!-- Einde scherm -->
+<div id="eindscherm" style="display: none;">
+    <h2>🎉 Je hebt de quiz voltooid!</h2>
+    <div id="score-overzicht" style="margin: 20px; text-align: left;"></div>
+    <button onclick="location.reload()">Opnieuw spelen</button>
+</div>
+
+<script>
+    const locaties = [
+        { naam: "Amsterdam Centraal", x: 370, y: 135 },
+        { naam: "Anne Frank Huis", x: 150, y: 210 },
+        { naam: "Dam", x: 300, y: 280 },
+        { naam: "Wallen", x: 420, y: 340 },
+        { naam: "Rembrandt Thuis", x: 560, y: 340 },
+        { naam: "NEMO", x: 600, y: 140 },
+        { naam: "Bloemenmarkt", x: 120, y: 400 },
+        { naam: "Van Gogh Museum", x: 110, y: 560 },
+        { naam: "Rijksmuseum", x: 320, y: 640 },
+        { naam: "Heineken Brouwerij", x: 620, y: 540 }
+    ];
+
+    const vragenPerLocatie = {
+        "Amsterdam Centraal": [
+            { vraag: "Wat is het grootste station van Amsterdam?", antwoord: "Amsterdam Centraal" },
+            { vraag: "In welk jaar werd het station geopend?", antwoord: "1889" },
+            { vraag: "Wie ontwierp het station?", antwoord: "Pierre Cuypers" }
+        ],
+        "Anne Frank Huis": [
+            { vraag: "Wie schreef een beroemd dagboek?", antwoord: "Anne Frank" },
+            { vraag: "In welk jaar werd Anne Frank geboren?", antwoord: "1929" },
+            { vraag: "Waar moest Anne zich verstoppen?", antwoord: "Achterhuis" }
+        ],
+        "Dam": [
+            { vraag: "Wat staat midden op de Dam?", antwoord: "Nationaal Monument" },
+            { vraag: "Welk gebouw staat er ook?", antwoord: "Paleis op de Dam" },
+            { vraag: "Welke functie heeft het plein?", antwoord: "Plein" }
+        ],
+        "Wallen": [
+            { vraag: "Wat is de bijnaam van de Wallen?", antwoord: "Red Light District" },
+            { vraag: "Wat vind je hier veel?", antwoord: "Ramen" },
+            { vraag: "Wat voor soort buurt is dit?", antwoord: "Uitgaansbuurt" }
+        ],
+        "Rembrandt Thuis": [
+            { vraag: "Welke schilder woonde hier?", antwoord: "Rembrandt" },
+            { vraag: "Wat deed hij hier?", antwoord: "Schilderen" },
+            { vraag: "Wat is het nu?", antwoord: "Museum" }
+        ],
+        "NEMO": [
+            { vraag: "Wat is NEMO?", antwoord: "Science Museum" },
+            { vraag: "Voor wie is het bedoeld?", antwoord: "Kinderen" },
+            { vraag: "Wat is het gebouwsvorm?", antwoord: "Schip" }
+        ],
+        "Bloemenmarkt": [
+            { vraag: "Wat kun je hier kopen?", antwoord: "Bloemen" },
+            { vraag: "Waar ligt het op?", antwoord: "Water" },
+            { vraag: "Wat is het?", antwoord: "Markt" }
+        ],
+        "Van Gogh Museum": [
+            { vraag: "Welke schilder hangt hier?", antwoord: "Van Gogh" },
+            { vraag: "Wat zie je veel in zijn schilderijen?", antwoord: "Zonnebloemen" },
+            { vraag: "Wat voor gebouw is het?", antwoord: "Museum" }
+        ],
+        "Rijksmuseum": [
+            { vraag: "Welk beroemd schilderij hangt hier?", antwoord: "De Nachtwacht" },
+            { vraag: "Wie schilderde 'De Nachtwacht'?", antwoord: "Rembrandt" },
+            { vraag: "Wat voor gebouw is het Rijksmuseum?", antwoord: "Museum" }
+        ],
+        "Heineken Brouwerij": [
+            { vraag: "Wat wordt hier gemaakt?", antwoord: "Bier" },
+            { vraag: "Wat is de naam van het merk?", antwoord: "Heineken" },
+            { vraag: "Wat kun je hier doen?", antwoord: "Tour" }
+        ]
+    };
+
+    let huidigeLocatie = null;
+    let huidigeIndex = 0;
+    const scorePerLocatie = {};
+    const kaart = document.getElementById("kaart");
+
+    locaties.forEach((loc, index) => {
+        const div = document.createElement("div");
+        div.className = "hotspot";
+        div.style.top = loc.y + "px";
+        div.style.left = loc.x + "px";
+        div.onclick = () => startVragenreeks(loc.naam, loc.x, loc.y);
+        kaart.appendChild(div);
+
+        if (loc.naam !== "Amsterdam Centraal") {
+            const slot = document.createElement("img");
+            slot.src = "img_1..png";
+            slot.className = "slot";
+            slot.style.top = loc.y + "px";
+            slot.style.left = loc.x + "px";
+            slot.id = `slot-${loc.naam}`;
+            kaart.appendChild(slot);
+        }
+    });
+
+    function startVragenreeks(locatie, x, y) {
+        if (!locatieVrij(locatie)) {
+            alert("Deze locatie is nog vergrendeld!");
+            return;
+        }
+
+        huidigeLocatie = locatie;
+        huidigeIndex = 0;
+
+        const popup = document.getElementById("vraag-popup");
+        popup.style.left = (x + 70) + "px";
+        popup.style.top = (y + 50) + "px";
+        popup.style.display = "block";
+
+        document.getElementById("antwoord-input").value = "";
+        document.getElementById("feedback").innerText = "";
+        toonVraag();
+    }
+
+    function toonVraag() {
+        const vraag = vragenPerLocatie[huidigeLocatie][huidigeIndex].vraag;
+        document.getElementById("vraag-tekst").innerText = vraag;
+    }
+
+    function checkAntwoord() {
+        const userInput = document.getElementById("antwoord-input").value.trim().toLowerCase();
+        const juist = vragenPerLocatie[huidigeLocatie][huidigeIndex].antwoord.toLowerCase();
+        const feedback = document.getElementById("feedback");
+
+        if (!scorePerLocatie[huidigeLocatie]) scorePerLocatie[huidigeLocatie] = 0;
+
+        if (userInput === juist) {
+            feedback.innerText = "✅ Goed!";
+            feedback.style.color = "#00ff90";
+            scorePerLocatie[huidigeLocatie] += 1;
+        } else {
+            feedback.innerText = "❌ Probeer opnieuw.";
+            feedback.style.color = "#ff4444";
+            return;
+        }
+
+        huidigeIndex++;
+
+        setTimeout(() => {
+            if (huidigeIndex < vragenPerLocatie[huidigeLocatie].length) {
+                document.getElementById("antwoord-input").value = "";
+                feedback.innerText = "";
+                toonVraag();
+            } else {
+                feedback.innerText = `🎉 Reeks voltooid! (${scorePerLocatie[huidigeLocatie]}/3 goed)`;
+                ontgrendelVolgende();
+                checkEinde();
+            }
+        }, 800);
+    }
+
+    function locatieVrij(locatie) {
+        const index = locaties.findIndex(l => l.naam === locatie);
+        if (index === 0) return true;
+
+        const vorige = locaties[index - 1].naam;
+        return scorePerLocatie[vorige] >= 2;
+    }
+
+    function ontgrendelVolgende() {
+        const index = locaties.findIndex(l => l.naam === huidigeLocatie);
+        const volgende = locaties[index + 1];
+        if (!volgende) return;
+
+        if (scorePerLocatie[huidigeLocatie] >= 2) {
+            const slot = document.getElementById(`slot-${volgende.naam}`);
+            if (slot) slot.style.display = "none";
+        }
+    }
+
+    function checkEinde() {
+        const allesVoltooid = locaties.every(loc => scorePerLocatie[loc.naam] >= 2);
+        if (!allesVoltooid) return;
+
+        document.getElementById("vraag-popup").style.display = "none";
+        document.getElementById("eindscherm").style.display = "flex";
+
+        let totaal = 0;
+        let overzichtHtml = "<ul style='list-style: none; padding: 0;'>";
+
+        locaties.forEach(loc => {
+            const score = scorePerLocatie[loc.naam] || 0;
+            overzichtHtml += `<li>${loc.naam}: ${score} / 3 goed</li>`;
+            totaal += score;
+        });
+
+        overzichtHtml += `</ul><p><strong>Totaalscore: ${totaal} / ${locaties.length * 3}</strong></p>`;
+        document.getElementById("score-overzicht").innerHTML = overzichtHtml;
+    }
+</script>
+</body>
+</html>
